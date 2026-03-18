@@ -1,125 +1,165 @@
-
 # 💬 Chatify (MERN + Socket.IO)
 
-A real-time chat application with 🔐 authentication, 🟢 online user tracking (Socket.IO), and 🖼️ profile picture upload (Cloudinary).
+<p align="center">
+	<b>🔐 Authentication • 💬 Real-time messaging • 🟢 Online users • 🖼️ Cloudinary uploads</b><br/>
+	Chatify is a full-stack real-time chat app built with Node.js, Express, MongoDB, React (Vite), and Socket.IO.
+</p>
+
+<p align="center">
+	<a href="https://your-vercel-frontend-url" target="_blank">
+		<img alt="Live Frontend" src="https://img.shields.io/badge/Live%20Frontend-Vercel-000000?style=for-the-badge&logo=vercel&logoColor=white" />
+	</a>
+	<a href="https://chatify-backend-4qij.onrender.com" target="_blank">
+		<img alt="Live Backend" src="https://img.shields.io/badge/Live%20Backend-Render-46E3B7?style=for-the-badge" />
+	</a>
+	<img alt="Node" src="https://img.shields.io/badge/Node.js-Backend-339933?style=for-the-badge&logo=nodedotjs&logoColor=white" />
+	<img alt="MongoDB" src="https://img.shields.io/badge/MongoDB-Database-47A248?style=for-the-badge&logo=mongodb&logoColor=white" />
+	<img alt="Socket" src="https://img.shields.io/badge/Socket.IO-Realtime-010101?style=for-the-badge&logo=socketdotio&logoColor=white" />
+	<img alt="Cloudinary" src="https://img.shields.io/badge/Cloudinary-Media-3448C5?style=for-the-badge&logo=cloudinary&logoColor=white" />
+</p>
+
+---
 
 ## 🌐 Live Website
 
-- **LIVE Website:** https://your-deployed-site-url.com
+- **Frontend (Vercel):** https://your-vercel-frontend-url
+- **Backend (Render):** https://chatify-backend-4qij.onrender.com
+
+---
 
 ## ✨ Features
 
-- 🔐 Cookie-based JWT authentication
-- 💬 Real-time messaging with Socket.IO
-- 🟢 Online users tracking
+- 🔐 Cookie-based JWT authentication (signup/login/logout)
+- 💬 Real-time chat with Socket.IO
+- 🟢 Online user tracking
 - 🖼️ Profile picture upload via Cloudinary
-- 🎨 Modern UI (React + Tailwind)
+- 🎨 Modern UI (React + Tailwind) with Zustand state management
 
-## 🧱 Folder Structure
+---
 
-- `Backend/` — Express + MongoDB + Socket.IO server
-- `Frontend/vite-project/` — React (Vite) client
-
-## 🛠️ Tech Stack
+## 🧰 Tech Stack
 
 - **Backend:** Node.js, Express, MongoDB (Mongoose), JWT (cookie-based), Socket.IO
-- **Frontend:** React, Vite, Zustand, Axios, Tailwind CSS
-- **Media:** Cloudinary (images are stored in Cloudinary, DB stores the image URL)
+- **Frontend:** React, Vite, Zustand, Axios, Tailwind CSS, Socket.IO Client
+- **Media:** Cloudinary (uploads stored in Cloudinary, DB stores image URL)
+
+---
+
+## 📁 Project Structure
+
+```text
+LIVE_CHAT/
+├── Backend/                  # Express + MongoDB + Socket.IO server
+└── Frontend/vite-project/    # React (Vite) client
+```
+
+---
+
+## 📸 Preview
+
+### 🏠 Home / Chat
+![Home](./Home.png)
+
+### 🔐 Login
+![Login](./Login.png)
+
+---
+
+## 🚀 Getting Started (Local)
 
 ## ✅ Prerequisites
 
 - Node.js installed
 - MongoDB connection string (Atlas or local)
-- Cloudinary account (for profile picture upload)
-
-## 🚀 Run Locally
+- Cloudinary account
 
 ### 1) Backend Setup
-
-Install dependencies:
 
 ```bash
 cd Backend
 npm install
 ```
 
-Create `Backend/.env` (copy from `Backend/.env.example` and fill your real values). Do NOT commit `Backend/.env`.
+Create `Backend/.env` (copy from `Backend/.env.example`):
 
-```env
-PORT=5000
-NODE_ENV=development
-
-MONGODB_URI=your_mongodb_connection_string
-secretKey=your_jwt_secret
-
-CLOUDINARY_CLOUD_NAME=your_cloud_name
-CLOUDINARY_API_KEY=your_api_key
-CLOUDINARY_SECRET_KEY=your_api_secret
+```bash
+copy .env.example .env
 ```
 
-Start the backend:
+Start backend:
 
 ```bash
 npm start
 ```
 
-Backend entry: `Backend/src/app.js`
-
-Important:
-
-- Frontend API base URL is `http://localhost:5000/api` (see `Frontend/vite-project/src/lib/axios.js`).
-- Socket.IO client connects to `http://localhost:5000` (see `Frontend/vite-project/src/store/authStore.js`).
-- Keep `PORT=5000` locally unless you also update those client URLs.
-
 ### 2) Frontend Setup
-
-Install dependencies:
 
 ```bash
 cd Frontend/vite-project
 npm install
 ```
 
-Start the frontend:
+Create `Frontend/vite-project/.env` (copy from `.env.example`):
+
+```bash
+copy .env.example .env
+```
+
+Start frontend:
 
 ```bash
 npm run dev
 ```
 
-Vite typically runs at `http://localhost:5173`.
+---
 
-Note:
+## 🔑 Environment Variables
 
-- Running `npm start` inside `Frontend/` (not `Frontend/vite-project/`) will fail because `Frontend/` has no `package.json`.
+### Backend (`Backend/.env`)
 
-## 🖼️ Profile Picture (How It Works)
+| Variable | Required | Description |
+| --- | --- | --- |
+| `PORT` | ❌ | Server port |
+| `MONGODB_URI` | ✅ | MongoDB connection string |
+| `secretKey` | ✅ | JWT secret used to sign cookies |
+| `CLIENT_URL` | ❌ | Frontend URL allowed by CORS (Vercel domain) |
+| `CLOUDINARY_CLOUD_NAME` | ✅ | Cloudinary cloud name |
+| `CLOUDINARY_API_KEY` | ✅ | Cloudinary API key |
+| `CLOUDINARY_SECRET_KEY` | ✅ | Cloudinary API secret |
 
-- The user document stores `profilepic` as a string URL.
-- Frontend sends a Base64 DataURL to `POST /api/auth/update-profile`.
-- Backend uploads to Cloudinary and saves `secure_url` in MongoDB.
-- If no image is set, the frontend uses a generated fallback avatar.
+### Frontend (`Frontend/vite-project/.env`)
 
-## 📦 Deploy
+| Variable | Required | Description |
+| --- | --- | --- |
+| `VITE_API_BASE_URL` | ✅ | Backend API base URL (e.g. `http://localhost:5000/api`) |
+| `VITE_SOCKET_URL` | ✅ | Backend socket URL (e.g. `http://localhost:5000`) |
 
-You can deploy **Backend** and **Frontend** separately.
+---
 
-### Backend Deployment
+## 🚢 Deployment
 
-1) Deploy `Backend/` to a Node hosting provider (Render / Railway / etc.).
-2) Set the same environment variables from `Backend/.env` in your hosting dashboard.
-3) Ensure your backend CORS allows your deployed frontend domain.
+### Backend (Render)
 
-### Frontend Deployment
+1. Deploy `Backend/` as a Node service.
+2. Set env vars from `Backend/.env` in Render dashboard.
+3. Set `CLIENT_URL` = your Vercel frontend domain.
 
-1) Deploy `Frontend/vite-project/` to a static host (Vercel / Netlify / etc.).
-2) Update the frontend to point to your deployed backend:
-	- API base URL in `Frontend/vite-project/src/lib/axios.js`
-	- Socket server URL in `Frontend/vite-project/src/store/authStore.js`
-3) After deploying, paste your deployed URL into the **Live Website** section above so people can click it.
+### Frontend (Vercel)
+
+1. Deploy `Frontend/vite-project/`.
+2. Set `VITE_API_BASE_URL` and `VITE_SOCKET_URL` to your deployed Render backend URLs.
+
+---
 
 ## 🧩 Common Issues
 
-- **Profile upload fails:** verify Cloudinary env vars.
-- **CORS errors:** make sure backend allows your frontend domain.
-- **Socket not connecting:** confirm the client is pointing to the correct socket URL.
+- **CORS errors:** make sure backend `CLIENT_URL` matches your deployed frontend domain.
+- **Socket not connecting:** ensure `VITE_SOCKET_URL` points to backend.
+- **Uploads failing:** verify Cloudinary env vars.
+
+---
+
+## 👨‍💻 Author
+
+Built by Avinash.
 

@@ -10,9 +10,15 @@ import { server, app } from './lib/socket.js';
 import authRoute from './routes/authRoute.js';
 import messageRoute from './routes/messageRoute.js';
 
+const corsOrigins = [
+    process.env.CLIENT_URL,
+    'http://localhost:5173',
+    'http://localhost:5174',
+].filter(Boolean);
+
 app.use(cors({
-    origin: ['http://localhost:5173', 'http://localhost:5174'],
-    credentials: true,  
+    origin: corsOrigins,
+    credentials: true,
 }));
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ limit: '10mb', extended: true }));

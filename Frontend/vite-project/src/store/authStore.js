@@ -3,6 +3,8 @@ import { axiosInstance } from "../lib/axios.js";
 import toast from "react-hot-toast";
 import { io } from "socket.io-client";
 
+const socketUrl = import.meta.env.VITE_SOCKET_URL || "http://localhost:5000";
+
 export const authStore = create((set, get) => ({
   loggedUser: null,
   onlineUsers: [],
@@ -15,7 +17,7 @@ export const authStore = create((set, get) => ({
       set({ loggedUser: res.data });
       toast.success("Signup successfull");
       get().connectSocket();
-    } catch (error) {
+    } catch {
       toast.error("Signup failed. Please try again.");
       set({ loggedUser: null });
     }
@@ -26,7 +28,7 @@ export const authStore = create((set, get) => ({
       const res = await axiosInstance.get("/auth/me");
       set({ loggedUser: res.data });
       get().connectSocket();
-    } catch (error) {
+    } catch {
       set({ loggedUser: null });
     } finally {
       set({ isCheckingAuth: false });
@@ -41,7 +43,7 @@ export const authStore = create((set, get) => ({
       set({ loggedUser: res.data });
       toast.success("Login successfull");
       get().connectSocket();
-    } catch (error) {
+    } catch {
       toast.error("Login failed. please try again");
       set({ loggedUser: null });
     }
@@ -54,7 +56,7 @@ export const authStore = create((set, get) => ({
       set({ loggedUser: null });
       toast.success("Logout successful");
       get().disconnectSocket();
-    } catch (error) {
+    } catch {
       toast.error("Logout failed. please try again");
     }
   },
@@ -75,7 +77,7 @@ export const authStore = create((set, get) => ({
     if (!loggedUser?._id) return;
     if (get().socket?.connected) return;
 
-    const socket = io("http://localhost:5000", {
+    const socket = io(socketUrl, {
       query: { userId: loggedUser._id },
     });
     socket.connect();

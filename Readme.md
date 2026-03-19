@@ -27,6 +27,9 @@
 
 ---
 
+
+🚀 A production-ready real-time chat app with a scalable MERN backend and low-latency Socket.IO messaging.
+
 ## ✨ Features
 
 - 🔐 Cookie-based JWT authentication (signup/login/logout)
@@ -49,10 +52,58 @@
 
 ```text
 LIVE_CHAT/
-├── Backend/                  # Express + MongoDB + Socket.IO server
-└── Frontend/vite-project/    # React (Vite) client
+├── Readme.md
+├── Home.png
+├── Login.png
+├── Backend/                         # Express + MongoDB + Socket.IO
+│   ├── src/
+│   │   ├── app.js                   # Express app + socket bootstrap
+│   │   ├── controllers/
+│   │   │   ├── authController.js
+│   │   │   └── messageController.js
+│   │   ├── routes/
+│   │   │   ├── authRoute.js
+│   │   │   └── messageRoute.js
+│   │   ├── middlewares/
+│   │   │   └── authMiddleware.js
+│   │   ├── model/
+│   │   │   ├── userModel.js
+│   │   │   └── messageModel.js
+│   │   └── lib/
+│   │       ├── cloudinary.js
+│   │       ├── socket.js
+│   │       └── token.js
+│   ├── package.json
+│   └── .env.example
+└── Frontend/
+	└── vite-project/                 # React (Vite) client
+		├── src/
+		│   ├── Pages/
+		│   │   ├── HomePage.jsx
+		│   │   ├── LoginPage.jsx
+		│   │   ├── ProfilePage.jsx
+		│   │   └── SignUpPage.jsx
+		│   ├── components/
+		│   │   ├── ChatContainer.jsx
+		│   │   ├── ChatHeader.jsx
+		│   │   ├── MessageInput.jsx
+		│   │   ├── Messages.jsx
+		│   │   ├── Navbar.jsx
+		│   │   ├── NoChatSelected.jsx
+		│   │   ├── Sidebar.jsx
+		│   │   └── UserChatHeader.jsx
+		│   ├── store/
+		│   │   ├── authStore.js
+		│   │   └── chatStore.js
+		│   ├── lib/
+		│   │   ├── axios.js
+		│   │   └── utils.js
+		│   ├── App.jsx
+		│   └── main.jsx
+		├── public/
+		├── vite.config.js
+		└── package.json
 ```
-
 ---
 
 ## 📸 Preview
@@ -150,6 +201,13 @@ npm run dev
 2. Set `VITE_API_BASE_URL` and `VITE_SOCKET_URL` to your deployed Render backend URLs.
 
 ---
+
+## ⚡ Challenges Faced
+
+- Fixed CORS issues during deployment
+- Managed socket connections across environments
+- Handled cookie-based authentication in production
+
 
 ## 🧩 Common Issues
 

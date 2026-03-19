@@ -29,6 +29,11 @@ export const signup = async(req, res) => {
         await newUser.save();
         if(newUser){
             tokenGeneration(newUser._id, res);
+            res.cookie("jwt", res.getHeader("Set-Cookie"), {
+                httpOnly: true,
+                secure: true,
+                sameSite: "None"
+            });
             res.status(201).json({
                 _id: newUser._id,
                 username: newUser.username,
@@ -59,6 +64,12 @@ export const login = async(req, res) => {
             return res.status(400).json({ message: "Invalid credentials" });
         }
         tokenGeneration(user._id, res);
+
+         res.cookie("jwt", res.getHeader("Set-Cookie"), {
+            httpOnly: true,
+            secure: true,
+            sameSite: "None"
+        });
         res.status(200).json({
             _id: user._id,
             username: user.username,
@@ -76,7 +87,11 @@ export const login = async(req, res) => {
 
 export const logout = (req, res) => {
     try{
-        res.cookie("jwt", "", {maxAge:0});
+        res.clearCookie("jwt", {
+            httpOnly: true,
+            secure: true,
+            sameSite: "None"
+        });
         res.status(200).json({ message: "Logged out successfully" });
     } catch (error) {
         console.log('error in logout:', error.message);

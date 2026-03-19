@@ -22,8 +22,8 @@
 
 ## 🌐 Live Website
 
-- **Frontend (Vercel):** https://your-vercel-frontend-url
-- **Backend (Render):** https://chatify-backend-4qij.onrender.com
+- **Frontend (Vercel):** https://chatify-plum.vercel.app/
+- **Backend (Render):** https://chatify-backend-4qij.onrender.com/
 
 ---
 

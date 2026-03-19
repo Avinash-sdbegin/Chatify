@@ -6,15 +6,13 @@ import { Server } from 'socket.io';
 const app = express();
 const server = http.createServer(app);
 
-const corsOrigins = [
-    process.env.CLIENT_URL,
-    'http://localhost:5173',
-    'http://localhost:5174',
-].filter(Boolean);
-
 const io = new Server(server, {
     cors: {
-        origin: corsOrigins,
+        origin: [
+  "https://chatify-plum.vercel.app",
+  "http://localhost:5173",
+  "http://localhost:5174"
+],
         credentials: true,
     }
 });

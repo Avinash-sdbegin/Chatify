@@ -7,7 +7,7 @@ export const checkAuth = async (req, res, next) => {
         if(!token){
             return res.status(401).json({ message: "token is required" });
         }
-        const decode = jwt.verify(token, process.env.secretKey);
+        const decode = jwt.verify(token, process.env.SECRET_KEY);
         if(!decode){
             return res.status(401).json({ message: "Invalid token" });
         }
